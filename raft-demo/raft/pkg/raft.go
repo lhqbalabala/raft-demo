@@ -255,8 +255,8 @@ func (rf *Raft) CommitToMachine() {
 		if len(rf.log) >= 100000 {
 			rf.lock.Lock()
 			start := 0
-			if rf.lastApplied-rf.StartIndex >= 5 {
-				start = 5
+			if rf.lastApplied-rf.StartIndex >= 500000 {
+				start = 500000
 			} else {
 				start = int(rf.lastApplied - rf.StartIndex)
 			}
