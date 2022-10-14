@@ -1,0 +1,35 @@
+syntax = "proto3";
+package models;
+
+option go_package = "../../models";
+
+
+message LogEntry{
+  Command  Command=1;
+  int32 Term=2;
+}
+message Command{
+  string Type=1;
+  string Key=2;
+  string Value=3;
+  int32 Id=4;
+  int32 TimeDuration=5;
+}
+message AppendCommandArgs{
+  Command Command=1;
+}
+message AppendCommandReply{
+  bool IsReceive=1;
+}
+message GetKeyArgs{
+  string Key=1;
+}
+message GetKeyReply{
+  string Value=1;
+  bool IsOk=2;
+}
+service RaftRPC{
+  rpc GetKey(GetKeyArgs)returns (GetKeyReply);
+  rpc AppendCommand(AppendCommandArgs) returns (AppendCommandReply);
+}
+
